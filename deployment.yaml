@@ -17,18 +17,15 @@ spec:
       containers:
       - image: lscr.io/linuxserver/wireguard:latest
         name: wireguard
-        args: 
-        # - "--cap-add"
-        # - "NET_ADMIN"
-        # - "--cap-add"
-        # - "SYS_MODULE"
-        - "--sysctl"
-        - "net.ipv4.conf.all.src_valid_mark=1"
         envFrom:
         - configMapRef:
             name: wireguard-configmap 
-        # securityContext:
-        #   privileged: true
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+              - NET_ADMIN
+              - SYS_MODULE
         ports: 
           - containerPort: 51820
             protocol: UDP

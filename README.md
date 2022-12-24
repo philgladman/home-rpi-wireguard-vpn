@@ -12,6 +12,12 @@ Wireguard VPN on raspberry pi k3s cluster
 - If you already have a Raspberry pi configured with K3s, MetalLb, and Nginx ingress, please move on to [Step 1.)](README.md#step-1---setup-external-drive-for-nfs-server)
 
 
+####
+- sudo apt update
+- sudo apt upgrade -y
+- sudo apt install linux-modules-extra-raspi -y 
+
+
 ## Step 1.) - Configure DYNU DNS
 - Go to https://www.dynu.com/ and create an account
 - Once logged in with your new accout go to the [Control Plane](https://www.dynu.com/en-US/ControlPanel), and click on `DDNS Services`.
@@ -31,5 +37,6 @@ Wireguard VPN on raspberry pi k3s cluster
 - Now that our Public Ip is getting updated every 5 minutes, we can move forward with installing Wireguard VPN.
 
 ## Step 2.) - Configure and install Wireguard VPN
-- 
+- edit the `wireguard-cm.yaml` to have your Timezone, DYNU URL, PEERs, etc.
+- for this demo we will create 2 peers
 
