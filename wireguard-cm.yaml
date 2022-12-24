@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wireguard-configmap
+data:
+  PUID: "1000"
+  PGID: "1000"
+  TZ: "NewYork/America"
+  SERVERURL: "<your-server-url>"
+  SERVERPORT: "51820"
+  PEERS: "philiphone,philmacbook"
+  PEERDNS: "auto"
+  INTERNAL_SUBNET: "10.1.2.0 "
+  ALLOWEDIPS: "0.0.0.0/0"
+  LOG_CONFS: "true"
