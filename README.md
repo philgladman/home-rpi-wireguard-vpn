@@ -9,14 +9,8 @@ Wireguard VPN on raspberry pi k3s cluster
   - Spin up K3s
   - Install MetalLb
   - Install Nginx Ingress
-- If you already have a Raspberry pi configured with K3s, MetalLb, and Nginx ingress, please move on to [Step 1.)](README.md#step-1---setup-external-drive-for-nfs-server)
-
-
-####
-- sudo apt update
-- sudo apt upgrade -y
-- sudo apt install linux-modules-extra-raspi -y 
-
+### NFS Setup
+- Please follow this link for instructions on [How to install and setup a NFS Server on raspberry pi K3s Cluster](https://github.com/philgladman/home-rpi-NFS.git)
 
 ## Step 1.) - Configure DYNU DNS
 - Go to https://www.dynu.com/ and create an account
@@ -37,6 +31,13 @@ Wireguard VPN on raspberry pi k3s cluster
 - Now that our Public Ip is getting updated every 5 minutes, we can move forward with installing Wireguard VPN.
 
 ## Step 2.) - Configure and install Wireguard VPN
-- edit the `wireguard-cm.yaml` to have your Timezone, DYNU URL, PEERs, etc.
-- for this demo we will create 2 peers
+- clone this repo `git clone https://github.com/philgman1121/home-rpi-wireguard-vpn.git`
+- cd into the repo `cd home-rpi-wireguard-vpn`
+- edit the `kustomize/wireguard-cm.yaml` to have your values
+- set the `TZ` variable to have your Timezone.
+- set the `SERVERURL` to have your DYNU url.
+- for this demo we will create 2 peers `philiphone` and `philmackbook`. Feel free to change the names, or add more/less. The peer name must only contain letters and numbers.
+- `PEERDNS` is set to `auto`. If you have a pihole running, you can set this `PEERDNS` to the clusterIP of your pihole svc.
+- `INTERNAL_SUBNET` is the subnet on the vpn.
+- After all the values have been customized, deploy wireguard with `kubectl apply -k kustomize/.`
 

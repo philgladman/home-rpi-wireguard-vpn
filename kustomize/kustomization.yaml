@@ -11,5 +11,3 @@ resources:
   - wireguard-pvc.yaml
   - deployment.yaml
   - wireguard-svc.yaml
-
-
