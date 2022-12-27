@@ -2,6 +2,11 @@
 Wireguard VPN on raspberry pi k3s cluster
 
 ## Prereq Steps
+- K3s Cluster running on Raspberry Pi(s)
+- MetalLB
+- Nginx Ingress
+- NFS Server install on K3s Cluster
+
 ### Raspberry Pi Setup
 - Please follow this link for instructions on [How to install and setup K3s Cluster on raspberry pi](https://github.com/philgladman/home-rpi-k3s-cluster.git)
 - This link will show you how to;
@@ -40,4 +45,13 @@ Wireguard VPN on raspberry pi k3s cluster
 - `PEERDNS` is set to `auto`. If you have a pihole running, you can set this `PEERDNS` to the clusterIP of your pihole svc.
 - `INTERNAL_SUBNET` is the subnet on the vpn.
 - After all the values have been customized, deploy wireguard with `kubectl apply -k kustomize/.`
+- On your router, you will need to port foward port 51820 UDP to the ip of the wireguard svc(wireguard svc ip = `kubectl get svc -n wireguard wireguard -o jsonpath='{.status.loadBalancer.ingress[].ip}'`)
 
+## Step 3.) - Retrieve Wireguard VPN Configuration
+- Once the wireguard pod is up and running, run the following command `kubectl logs -n wireguard $(kubectl get pods -n wireguard -o jsonpath='{.items[].metadata.name}')`
+- This will output the logs of the wireguard container, which will have a qr code for each peer. 
+- Download the wireguard app on your phone. 
+- Once downloaded, click the plus sign to add a new wireguard tunnel
+- click `Create from QR code`
+- scan the QR code from earlier.
+- Now you can turn your new VPN on and test.
