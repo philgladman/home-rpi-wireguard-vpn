@@ -35,7 +35,7 @@ Wireguard VPN on raspberry pi k3s cluster
 - Now that we have our script configured, lets create a cronjob that runs the script every 5 minutes `echo "*/5 * * * * /home/pi/DYNU/updateIP.sh" >> /var/spool/cron/crontabs/root`. You will need to run this as root, `sudo su`.
 - Now that our Public Ip is getting updated every 5 minutes, we can move forward with installing Wireguard VPN.
 
-## Step 2.) - Configure and install Wireguard VPN
+## Step 3.) - Configure and install Wireguard VPN
 - clone this repo `git clone https://github.com/philgman1121/home-rpi-wireguard-vpn.git`
 - cd into the repo `cd home-rpi-wireguard-vpn`
 - edit the `kustomize/wireguard-cm.yaml` to have your values
@@ -47,7 +47,7 @@ Wireguard VPN on raspberry pi k3s cluster
 - After all the values have been customized, deploy wireguard with `kubectl apply -k kustomize/.`
 - On your router, you will need to port foward port 51820 UDP to the ip of the wireguard svc(wireguard svc ip = `kubectl get svc -n wireguard wireguard -o jsonpath='{.status.loadBalancer.ingress[].ip}'`)
 
-## Step 3.) - Retrieve Wireguard VPN Configuration
+## Step 4.) - Retrieve Wireguard VPN Configuration
 - Once the wireguard pod is up and running, run the following command `kubectl logs -n wireguard $(kubectl get pods -n wireguard -o jsonpath='{.items[].metadata.name}')`
 - This will output the logs of the wireguard container, which will have a qr code for each peer. 
 - Download the wireguard app on your phone. 
